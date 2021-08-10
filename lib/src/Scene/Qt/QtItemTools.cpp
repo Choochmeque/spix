@@ -57,30 +57,30 @@ QString GetObjectName(QObject* object)
         return context->nameForObject(object);
     }
 
-    return object->objectName();
+    return object->metaObject()->className();
 }
 
 QObject* FindChildItem(QObject* object, const QString& name)
 {
-    if (auto qquickitem = qobject_cast<const QQuickItem*>(object)) {
-        for (auto child : qquickitem->childItems()) {
-            if (GetObjectName(child) == name) {
-                return child;
-            }
-            if (auto item = FindChildItem(child, name)) {
-                return item;
-            }
-        }
-    } else {
+//    if (auto qquickitem = qobject_cast<const QQuickItem*>(object)) {
+//        for (auto child : qquickitem->childItems()) {
+//            if (GetObjectName(child) == name) {
+//                return child;
+//            }
+//            if (auto item = FindChildItem(child, name)) {
+//                return item;
+//            }
+//        }
+//    } else {
         for (auto child : object->children()) {
             if (GetObjectName(child) == name) {
                 return child;
             }
-            if (auto item = FindChildItem(child, name)) {
-                return item;
-            }
+//            if (auto item = FindChildItem(child, name)) {
+//                return item;
+//            }
         }
-    }
+//    }
 
     return nullptr;
 }
